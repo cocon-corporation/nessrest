@@ -223,6 +223,13 @@ class Scanner(object):
             elif not req.text:
                 self.res = {}
 
+            while req.status_code == 503:
+                sys.stdout.write(".")
+                sys.stdout.flush()
+                time.sleep(10)
+                req = requests.request(method, url, data=payload, files=files,
+                                       verify=verify, headers=headers)
+
             if req.status_code != 200:
                 print("*****************START ERROR*****************")
                 if private:
