@@ -99,6 +99,7 @@ class Scanner(object):
         self.plugin_output = {}
         self.host_details = {}
         self.host_ids = {}
+        self.status_code = ''
 
         if insecure and hasattr(requests, 'packages'):
             requests.packages.urllib3.disable_warnings()
@@ -223,12 +224,7 @@ class Scanner(object):
             elif not req.text:
                 self.res = {}
 
-            while req.status_code == 503:
-                sys.stdout.write(".")
-                sys.stdout.flush()
-                time.sleep(10)
-                req = requests.request(method, url, data=payload, files=files,
-                                       verify=verify, headers=headers)
+            self.status_code = req.status_code
 
             if req.status_code != 200:
                 print("*****************START ERROR*****************")
