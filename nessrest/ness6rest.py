@@ -219,12 +219,12 @@ class Scanner(object):
             req = requests.request(method, url, data=payload, files=files,
                                    verify=verify, headers=headers)
 
+            self.status_code = req.status_code
+
             if not download and req.text:
                 self.res = req.json()
             elif not req.text:
                 self.res = {}
-
-            self.status_code = req.status_code
 
             if req.status_code != 200:
                 print("*****************START ERROR*****************")
