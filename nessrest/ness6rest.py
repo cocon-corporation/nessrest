@@ -218,6 +218,17 @@ class Scanner(object):
             req = requests.request(method, url, data=payload, files=files,
                                    verify=verify, headers=headers)
 
+            while req.status_code == 503:
+                print("¥n-----------------------")
+                print("URL     : %s " % url)
+                print("METHOD  : %s" % method)
+                print("RESPONSE: %d" % req.status_code)
+                print("MESSAGE : Retry Action")
+                print("-----------------------")
+                time.sleep(10)
+                req = requests.request(method, url, data=payload, files=files,
+                                       verify=verify, headers=headers)
+
             if not download and req.text:
                 self.res = req.json()
             elif not req.text:
