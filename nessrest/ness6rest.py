@@ -99,7 +99,6 @@ class Scanner(object):
         self.plugin_output = {}
         self.host_details = {}
         self.host_ids = {}
-        self.status_code = ''
 
         if insecure and hasattr(requests, 'packages'):
             requests.packages.urllib3.disable_warnings()
